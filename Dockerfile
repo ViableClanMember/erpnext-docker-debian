@@ -130,7 +130,7 @@ COPY redis_socketio.conf /home/$systemUser/$benchFolderName/conf/
 COPY common_site_config.json /home/$systemUser/$benchFolderName/sites/
 
 # image entrypoint script
-CMD ["/home/$systemUser/entrypoint.sh"]
+CMD ["/home/frappe/entrypoint.sh"]
 
 # expose port
 EXPOSE 8000

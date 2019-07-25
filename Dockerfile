@@ -13,6 +13,7 @@ RUN apt-get -y update \
   git \
   # production
   supervisor \
+  nginx \
   # used for envsubst, making nginx cnf from template
   gettext-base \
   # fixed for wkhtmltopdf SSL problems
@@ -110,10 +111,7 @@ RUN git clone $benchRepo /tmp/.bench --depth 1 --branch $benchBranch \
   && sudo rm -rf /tmp/* \
   # clean up installation
   && sudo apt-get autoremove --purge -y \
-  && sudo apt-get clean \
-  # start mariadb & init new site
-  && bench config dns_multitenant on \
-  && bench config set-common-config -c db_host mariadb
+  && sudo apt-get clean
 
 # [work around] change back config for work around for  "cmd": "chsh frappe -s $(which bash)", "stderr": "Password: chsh: PAM: Authentication failure"
 RUN sudo sed -i 's/auth       sufficient   pam_shells.so/auth       required   pam_shells.so/' /etc/pam.d/chsh
@@ -124,10 +122,15 @@ WORKDIR /home/$systemUser/$benchFolderName
 
 # run start mysql service and start bench when container start
 COPY entrypoint.sh /usr/local/bin/
-# fix for [docker Error response from daemon OCI runtime create failed starting container process caused "permission denied" unknown]
-RUN sudo chmod +x /usr/local/bin/entrypoint.sh
+RUN chmod +x /home/$systemUser/entrypoint.sh
+
+COPY redis_cache.conf /home/$systemUser/$benchFolderName/conf/
+COPY redis_queue.conf /home/$systemUser/$benchFolderName/conf/
+COPY redis_socketio.conf /home/$systemUser/$benchFolderName/conf/
+COPY common_site_config.json /home/$systemUser/$benchFolderName/sites/
+
 # image entrypoint script
-CMD ["/usr/local/bin/entrypoint.sh"]
+CMD ["/home/$systemUser/entrypoint.sh"]
 
 # expose port
-EXPOSE 8000-8005 9000-9005 3306-3307
+EXPOSE 8000

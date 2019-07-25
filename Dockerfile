@@ -74,8 +74,8 @@ ENV easyinstallRepo='https://raw.githubusercontent.com/frappe/bench/master/playb
 
 # for python 2 use = python
 # for python 3 use = python3 or python3.6 for centos
-ARG pythonVersion=python
-ARG appBranch=master
+ARG pythonVersion=python3
+ARG appBranch=version-12
 
 RUN git clone $benchRepo /tmp/.bench --depth 1 --branch $benchBranch \
   # start easy install

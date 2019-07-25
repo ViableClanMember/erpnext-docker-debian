@@ -34,19 +34,10 @@ ENV LC_ALL=en_US.UTF-8 \
   LC_CTYPE=en_US.UTF-8 \
   LANG=en_US.UTF-8
 
-# manually install mariadb
-RUN apt-get update \
-  # add repo from mariadb mirrors
-  # https://downloads.mariadb.org/mariadb/repositories
-  && apt-get install -y software-properties-common dirmngr \
-  && apt-key adv --no-tty --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8 \
-  && add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.3/debian stretch main' \
-  # make frontend noninteractive to skip root password change
-  && export DEBIAN_FRONTEND=noninteractive \
-  # install mariadb
+RUN export DEBIAN_FRONTEND=noninteractive \
   && apt-get update \
   && apt-get install -y \
-  # package form bench playbook
+  # packages from bench playbook
   # https://github.com/frappe/bench/blob/d1810e1dc1849daabace392c55b39057c09e98b9/playbooks/roles/mariadb/tasks/debian.yml#L23
   mariadb-client \
   mariadb-common \
@@ -139,6 +130,3 @@ COPY nginx.conf /home/$systemUser/
 
 # image entrypoint script
 CMD ["/home/frappe/entrypoint.sh"]
-
-# expose port
-EXPOSE 8000

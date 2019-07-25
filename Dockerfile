@@ -62,6 +62,7 @@ RUN adduser --disabled-password --gecos "" $systemUser \
 
 RUN mkdir -p /var/lib/nginx/body
 RUN mkdir -p /var/lib/nginx/fastcgi
+RUN mkdir -p /var/lib/nginx/proxy
 
 # set user and workdir
 USER $systemUser

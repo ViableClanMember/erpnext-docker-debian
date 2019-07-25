@@ -101,11 +101,10 @@ RUN git clone $benchRepo /tmp/.bench --depth 1 --branch $benchBranch \
   # [work around] fix for Setup failed >> Could not start up: Error in setup
   && echo "=========================================== 5 ===========================================" \
   && bench update --patch \
-  # delete unnecessary frappe apps
+  && echo "=========================================== delete unnecessary frappe apps ===========================================" \
   && rm -rf \
   apps/frappe_io \
   apps/foundation \
-  && echo "=========================================== 6 ===========================================" \
   && sed -i '/foundation\|frappe_io/d' sites/apps.txt \
   # delete temp file
   && sudo rm -rf /tmp/* \

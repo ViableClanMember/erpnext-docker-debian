@@ -3,4 +3,4 @@
 set -euxo pipefail
 
 #sudo service mysql start
-bench start
+bench start --no-dev

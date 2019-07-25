@@ -4,7 +4,7 @@
 
 * Production build of ERPNext
 * Hosted in 1 Workload in Rancher 2.x
-* Seperate MariaDB
+* Separate MariaDB
 * Persistance to volume mounts
 * Multi-tenanted
 * Everything working: PDF, websocket updates, and email

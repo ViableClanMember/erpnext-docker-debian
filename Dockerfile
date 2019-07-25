@@ -86,19 +86,21 @@ RUN git clone $benchRepo /tmp/.bench --depth 1 --branch $benchBranch \
   --without-bench-setup \
   # install bench
   && rm -rf bench \
-  && echo "1" \
+  && echo "=========================================== 1 ===========================================" \
   && git clone --branch $benchBranch --depth 1 --origin upstream $benchRepo $benchPath  \
+  && echo "=========================================== 2 ===========================================" \
   && sudo pip install -e $benchPath \
   # init bench folder
+  && echo "=========================================== 3 ===========================================" \
   && bench init $benchFolderName --frappe-path $frappeRepo --frappe-branch $appBranch --python $pythonVersion \
-  && echo "2" \
   # cd to bench folder
   && cd $benchFolderName \
   # install erpnext
+  && echo "=========================================== 4 ===========================================" \
   && bench get-app erpnext $erpnextRepo --branch $appBranch \
   # [work around] fix for Setup failed >> Could not start up: Error in setup
+  && echo "=========================================== 5 ===========================================" \
   && bench update --patch \
-  && echo "3" \
   # delete unnecessary frappe apps
   && rm -rf \
   apps/frappe_io \

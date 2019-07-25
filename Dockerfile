@@ -64,6 +64,7 @@ RUN mkdir -p /var/lib/nginx/body
 RUN mkdir -p /var/lib/nginx/fastcgi
 RUN mkdir -p /var/lib/nginx/proxy
 RUN mkdir -p /var/lib/nginx/uwsgi
+RUN mkdir -p /var/lib/nginx/scgi
 
 # set user and workdir
 USER $systemUser

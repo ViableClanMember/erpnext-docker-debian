@@ -60,7 +60,8 @@ RUN adduser --disabled-password --gecos "" $systemUser \
   && usermod -aG sudo $systemUser \
   && echo "%sudo  ALL=(ALL)  NOPASSWD: ALL" > /etc/sudoers.d/sudoers
 
-RUN mkdir -p /var/lib/nginx/{body,fastcgi}
+RUN mkdir -p /var/lib/nginx/body
+RUN mkdir -p /var/lib/nginx/fastcgi
 
 # set user and workdir
 USER $systemUser

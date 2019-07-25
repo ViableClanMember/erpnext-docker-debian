@@ -116,6 +116,8 @@ RUN git clone $benchRepo /tmp/.bench --depth 1 --branch $benchBranch \
 # [work around] change back config for work around for  "cmd": "chsh frappe -s $(which bash)", "stderr": "Password: chsh: PAM: Authentication failure"
 RUN sudo sed -i 's/auth       sufficient   pam_shells.so/auth       required   pam_shells.so/' /etc/pam.d/chsh
 
+RUN mkdir -p /var/lib/nginx/{body,fastcgi}
+
 # set user and workdir
 USER $systemUser
 WORKDIR /home/$systemUser/$benchFolderName
@@ -129,7 +131,6 @@ COPY redis_queue.conf /home/$systemUser/$benchFolderName/conf/
 COPY redis_socketio.conf /home/$systemUser/$benchFolderName/conf/
 COPY common_site_config.json /home/$systemUser/$benchFolderName/sites/
 COPY supervisor.conf /home/$systemUser/
-RUN mkdir -p /home/${systemUser}/nginx
 COPY nginx.conf /home/$systemUser/
 
 # image entrypoint script

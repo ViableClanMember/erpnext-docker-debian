@@ -126,7 +126,7 @@ WORKDIR /home/$systemUser/$benchFolderName
 # run start mysql service and start bench when container start
 COPY entrypoint.sh /usr/local/bin/
 # fix for [docker Error response from daemon OCI runtime create failed starting container process caused "permission denied" unknown]
-RUN chmod +x /usr/local/bin/entrypoint.sh
+RUN sudo chmod +x /usr/local/bin/entrypoint.sh
 # image entrypoint script
 CMD ["/usr/local/bin/entrypoint.sh"]
 

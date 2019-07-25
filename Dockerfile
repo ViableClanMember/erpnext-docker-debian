@@ -129,6 +129,8 @@ COPY redis_queue.conf /home/$systemUser/$benchFolderName/conf/
 COPY redis_socketio.conf /home/$systemUser/$benchFolderName/conf/
 COPY common_site_config.json /home/$systemUser/$benchFolderName/sites/
 COPY supervisor.conf /home/$systemUser/
+RUN mkdir -p /home/${systemUser}/nginx
+COPY nginx.conf /home/$systemUser/
 
 # image entrypoint script
 CMD ["/home/frappe/entrypoint.sh"]

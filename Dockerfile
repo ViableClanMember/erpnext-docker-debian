@@ -122,7 +122,7 @@ WORKDIR /home/$systemUser/$benchFolderName
 
 # run start mysql service and start bench when container start
 COPY entrypoint.sh /home/$systemUser/
-RUN chmod +x /home/$systemUser/entrypoint.sh
+RUN sudo chmod +x /home/$systemUser/entrypoint.sh
 
 COPY redis_cache.conf /home/$systemUser/$benchFolderName/conf/
 COPY redis_queue.conf /home/$systemUser/$benchFolderName/conf/

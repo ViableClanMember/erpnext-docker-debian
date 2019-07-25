@@ -13,7 +13,7 @@
 
 bench new-site erp.yourdomain.com --mariadb-root-password "$DB_ROOT_PASS" --admin-password 123 --verbose --install-app erpnext
 
-cd ~/erpnext-docker-debian && git pull && docker build -t erpnext . && docker tag erpnext registry.yourinfra.com:5000/erpnext/erpnext && docker push registry.yourinfra.com:5000/erpnext/erpnext
+HN='yourinfra.com:5000' sh -c 'cd ~/erpnext-docker-debian && git pull && docker build -t erpnext . && docker tag erpnext $HN/erpnext/erpnext && docker push $HN/erpnext/erpnext'
 
 # fixed JS error
 bench update --build

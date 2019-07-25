@@ -105,7 +105,7 @@ RUN git clone $benchRepo /tmp/.bench --depth 1 --branch $benchBranch \
   && rm -rf \
   apps/frappe_io \
   apps/foundation \
-  && echo "4" \
+  && echo "=========================================== 6 ===========================================" \
   && sed -i '/foundation\|frappe_io/d' sites/apps.txt \
   # delete temp file
   && sudo rm -rf /tmp/* \
@@ -114,11 +114,7 @@ RUN git clone $benchRepo /tmp/.bench --depth 1 --branch $benchBranch \
   && sudo apt-get clean \
   # start mariadb & init new site
   && bench config dns_multitenant on \
-  && bench config set-common-config -c db_host mariadb \
-  && bench new-site default.site \
-  --mariadb-root-password $mysqlPass \
-  --admin-password $adminPass \
-  && bench --site default.site install-app erpnext
+  && bench config set-common-config -c db_host mariadb
 
 # [work around] change back config for work around for  "cmd": "chsh frappe -s $(which bash)", "stderr": "Password: chsh: PAM: Authentication failure"
 RUN sudo sed -i 's/auth       sufficient   pam_shells.so/auth       required   pam_shells.so/' /etc/pam.d/chsh

@@ -88,22 +88,6 @@ RUN git clone $benchRepo /tmp/.bench --depth 1 --branch $benchBranch \
   && git clone --branch $benchBranch --depth 1 --origin upstream $benchRepo $benchPath  \
   && echo "=========================================== 2 ===========================================" \
   && sudo pip install -e $benchPath \
-  # init bench folder
-  && echo "=========================================== 3 ===========================================" \
-  && bench init $benchFolderName --frappe-path $frappeRepo --frappe-branch $appBranch --python $pythonVersion \
-  # cd to bench folder
-  && cd $benchFolderName \
-  # install erpnext
-  && echo "=========================================== 4 ===========================================" \
-  && bench get-app erpnext $erpnextRepo --branch $appBranch \
-  # [work around] fix for Setup failed >> Could not start up: Error in setup
-  && echo "=========================================== 5 ===========================================" \
-  && bench update --patch \
-  && echo "=========================================== delete unnecessary frappe apps ===========================================" \
-  && rm -rf \
-  apps/frappe_io \
-  apps/foundation \
-  && sed -i '/foundation\|frappe_io/d' sites/apps.txt \
   # delete temp file
   && sudo rm -rf /tmp/* \
   # clean up installation
@@ -115,18 +99,16 @@ RUN sudo sed -i 's/auth       sufficient   pam_shells.so/auth       required   p
 
 # set user and workdir
 USER $systemUser
-WORKDIR /home/$systemUser/$benchFolderName
-
-# run start mysql service and start bench when container start
-COPY entrypoint.sh /home/$systemUser/
+WORKDIR /home/$systemUser
+COPY . .
 RUN sudo chmod +x /home/$systemUser/entrypoint.sh
 
-COPY redis_cache.conf /home/$systemUser/$benchFolderName/conf/
-COPY redis_queue.conf /home/$systemUser/$benchFolderName/conf/
-COPY redis_socketio.conf /home/$systemUser/$benchFolderName/conf/
-COPY common_site_config.json /home/$systemUser/$benchFolderName/sites/
-COPY supervisor.conf /home/$systemUser/
-COPY nginx.conf /home/$systemUser/
+# COPY redis_cache.conf /home/$systemUser/$benchFolderName/conf/
+# COPY redis_queue.conf /home/$systemUser/$benchFolderName/conf/
+# COPY redis_socketio.conf /home/$systemUser/$benchFolderName/conf/
+# COPY common_site_config.json /home/$systemUser/$benchFolderName/sites/
+# COPY supervisor.conf /home/$systemUser/
+# COPY nginx.conf /home/$systemUser/
 
 # image entrypoint script
 CMD ["/home/frappe/entrypoint.sh"]

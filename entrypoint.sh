@@ -7,7 +7,8 @@ set -euxo pipefail
 
 ls -al
 
-bench init /bench
+cd /bench
+bench init bench
 bench get-app erpnext https://github.com/frappe/erpnext --branch version-12
 bench update --patch
 

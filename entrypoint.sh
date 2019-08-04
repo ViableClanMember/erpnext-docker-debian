@@ -11,7 +11,7 @@ if [ ! -d "/bench/bench" ]; then
     echo "No bench detecting, initializing now..."
     cd /bench
     sudo chmod 777 .
-    bench init bench --frappe-path https://github.com/ViableClanMember/frappe --frappe-branch master
+    bench init bench --frappe-path https://github.com/ViableClanMember/frappe --frappe-branch version-12
     cd bench
     bench get-app erpnext https://github.com/frappe/erpnext --branch version-12
     bench update --patch || echo "Failed to update patch hack"

@@ -12,8 +12,8 @@ if [ ! -d "/bench/bench" ]; then
     cd /bench
     sudo chmod 777 .
     bench init bench
-    bench get-app erpnext https://github.com/frappe/erpnext --branch version-12
-    bench update --patch
+    bench get-app erpnext https://github.com/frappe/erpnext --branch version-12 || echo "Failed to install erpnext app"
+    bench update --patch || echo "Failed to update patch hack"
     cp /home/frappe/common_site_config.json /bench/bench/sites/
 fi;
 

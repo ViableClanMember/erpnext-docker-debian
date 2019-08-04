@@ -8,7 +8,7 @@ set -euxo pipefail
 ls -al
 
 cd /bench
-chmod 777 .
+sudo chmod 777 .
 bench init bench
 bench get-app erpnext https://github.com/frappe/erpnext --branch version-12
 bench update --patch

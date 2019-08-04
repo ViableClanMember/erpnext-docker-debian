@@ -102,6 +102,7 @@ USER $systemUser
 WORKDIR /home/$systemUser
 COPY . .
 RUN sudo chmod +x /home/$systemUser/entrypoint.sh
+RUN mkdir -p logs
 
 # COPY redis_cache.conf /home/$systemUser/$benchFolderName/conf/
 # COPY redis_queue.conf /home/$systemUser/$benchFolderName/conf/

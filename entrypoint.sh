@@ -17,6 +17,7 @@ if [ ! -d "/bench/bench" ]; then
     bench update --patch || echo "Failed to update patch hack"
 fi;
 
+cp -f /home/frappe/common_site_config.json /bench/bench/sites/
 DB_PASS=$(cat /secrets/DB_PASS) sh -c 'bench config set-common-config -c root_password $DB_PASS'
 ls -al
 

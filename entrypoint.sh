@@ -14,6 +14,7 @@ if [ ! -d "/bench/bench" ]; then
     bench init bench
     bench get-app erpnext https://github.com/frappe/erpnext --branch version-12
     bench update --patch
+    cp /home/frappe/common_site_config.json /bench/bench/sites/
 fi;
 
 ls -al

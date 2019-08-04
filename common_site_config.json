@@ -16,5 +16,6 @@
   "shallow_clone": true,
   "socketio_port": 9000,
   "update_bench_on_update": true,
-  "admin_password": "admin"
+  "admin_password": "admin",
+  "dockerized_db": true
 }

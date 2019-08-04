@@ -67,7 +67,6 @@ ENV easyinstallRepo='https://raw.githubusercontent.com/frappe/bench/master/playb
   benchBranch=master \
   benchFolderName=bench \
   benchRepo='https://github.com/frappe/bench' \
-  frappeRepo='https://github.com/frappe/frappe' \
   erpnextRepo='https://github.com/frappe/erpnext'
 
 # for python 2 use = python

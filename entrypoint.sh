@@ -16,10 +16,8 @@ if [ ! -d "/bench/bench" ]; then
     bench get-app erpnext https://github.com/frappe/erpnext --branch version-12
 fi;
 
-bench update --patch || echo "Failed to update patch hack"
-
 cp -f /home/frappe/common_site_config.json /bench/bench/sites/
-DB_PASS=$(cat /secrets/DB_PASS) sh -c 'cd /bench/bench && bench config set-common-config -c root_password $DB_PASS'
+DB_PASS=$(cat /secrets/DB_PASS) sh -c 'cd /bench/bench && bench config set-common-config -c root_password $DB_PASS && bench update --patch'
 ls -al
 
 # start supervisor

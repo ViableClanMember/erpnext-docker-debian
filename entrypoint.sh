@@ -17,7 +17,11 @@ if [ ! -d "/bench/bench" ]; then
 fi;
 
 cp -f /home/frappe/common_site_config.json /bench/bench/sites/
-DB_PASS=$(cat /secrets/DB_PASS) sh -c 'cd /bench/bench && bench config set-common-config -c root_password $DB_PASS && bench update --patch'
+DB_PASS=$(cat /secrets/DB_PASS) sh -c 'cd /bench/bench && bench config set-common-config -c root_password $DB_PASS'
+
+# TODO: needs redis running
+# bench update --patch
+
 ls -al
 
 # start supervisor

@@ -86,7 +86,8 @@ RUN git clone $benchRepo /tmp/.bench --depth 1 --branch $benchBranch \
   && echo "=========================================== 1 ===========================================" \
   && git clone --branch $benchBranch --depth 1 --origin upstream $benchRepo $benchPath  \
   && echo "=========================================== 2 ===========================================" \
-  && sudo pip install -e $benchPath \
+  && sudo pip3 install -e $benchPath \
+  # && bench setup requirements
   # delete temp file
   && sudo rm -rf /tmp/* \
   # clean up installation

@@ -18,7 +18,7 @@ fi;
 
 cp -f /home/frappe/common_site_config.json /bench/bench/sites/
 
-if [ -z "$DB_PASS" ]
+if [ ! -n "${DB_PASS:-}" ]
 then
   DB_PASS=$(cat /secrets/DB_PASS || true)
   if [ -z "$DB_PASS" ]

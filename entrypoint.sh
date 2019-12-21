@@ -21,7 +21,7 @@ DB_PASS=$(cat /secrets/DB_PASS || true)
 if [ -z "$DB_PASS" ]
 then
   echo "DB_PASS is empty, trying rancher 1.x..."
-  ls -al /run/secrets
+  ls -al /run/secrets || true
   DB_PASS=$(cat /run/secrets/DB_PASS || true)
   if [ -z "$DB_PASS" ]
   then

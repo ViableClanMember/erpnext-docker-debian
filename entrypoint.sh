@@ -17,21 +17,25 @@ if [ ! -d "/bench/bench" ]; then
 fi;
 
 cp -f /home/frappe/common_site_config.json /bench/bench/sites/
-DB_PASS=$(cat /secrets/DB_PASS || true)
-if [ -z "$DB_PASS" ]
+
+if [ ! -z "$DB_PASS" ]
 then
-  echo "DB_PASS is empty, trying rancher 1.x..."
-  ls -al /run/secrets || true
-  DB_PASS=$(cat /run/secrets/DB_PASS || true)
+  DB_PASS=$(cat /secrets/DB_PASS || true)
   if [ -z "$DB_PASS" ]
   then
-    echo "DB_PASS is empty, giving up!"
-    exit 129
+    echo "DB_PASS is empty, trying rancher 1.x..."
+    ls -al /run/secrets || true
+    DB_PASS=$(cat /run/secrets/DB_PASS || true)
+    if [ -z "$DB_PASS" ]
+    then
+      echo "DB_PASS is empty, giving up!"
+      exit 129
+    else
+      echo "DB_PASS is NOT empty"
+    fi
   else
     echo "DB_PASS is NOT empty"
   fi
-else
-  echo "DB_PASS is NOT empty"
 fi
 sh -c 'cd /bench/bench && bench config set-common-config -c root_password $DB_PASS'
 

@@ -21,18 +21,12 @@ DB_PASS=$(cat /secrets/DB_PASS || true)
 if [ -z "$DB_PASS" ]
 then
   echo "DB_PASS is empty, trying rancher 1.x..."
+  ls -al /run/secrets
   DB_PASS=$(cat /run/secrets/DB_PASS || true)
   if [ -z "$DB_PASS" ]
   then
-    echo "DB_PASS is empty, trying env variable ( $DB_PASS_SECRET_PATH )..."
-    DB_PASS=$(cat $DB_PASS_SECRET_PATH || true)
-    if [ -z "$DB_PASS" ]
-    then
-      echo "DB_PASS is empty, giving up!"
-      exit 129
-    else
-      echo "DB_PASS is NOT empty"
-    fi
+    echo "DB_PASS is empty, giving up!"
+    exit 129
   else
     echo "DB_PASS is NOT empty"
   fi

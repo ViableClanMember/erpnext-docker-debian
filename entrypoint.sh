@@ -37,7 +37,7 @@ then
     echo "DB_PASS is NOT empty"
   fi
 fi
-sh -c 'cd /bench/bench && bench config set-common-config -c root_password $DB_PASS'
+sh -c "cd /bench/bench && bench config set-common-config -c root_password $DB_PASS"
 
 
 # TODO: needs redis running

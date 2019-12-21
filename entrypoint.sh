@@ -17,7 +17,30 @@ if [ ! -d "/bench/bench" ]; then
 fi;
 
 cp -f /home/frappe/common_site_config.json /bench/bench/sites/
-DB_PASS=$(cat /secrets/DB_PASS) sh -c 'cd /bench/bench && bench config set-common-config -c root_password $DB_PASS'
+DB_PASS=$(cat /secrets/DB_PASS)
+if [ -z "$DB_PASS" ]
+then
+  echo "DB_PASS is empty, trying rancher 1.x..."
+  DB_PASS=$(cat /run/secrets/DB_PASS)
+  if [ -z "$DB_PASS" ]
+  then
+    echo "DB_PASS is empty, trying env variable ( $DB_PASS_SECRET_PATH )..."
+    DB_PASS=$(cat $DB_PASS_SECRET_PATH)
+    if [ -z "$DB_PASS" ]
+    then
+      echo "DB_PASS is empty, giving up!"
+      exit 129
+    else
+      echo "DB_PASS is NOT empty"
+    fi
+  else
+    echo "DB_PASS is NOT empty"
+  fi
+else
+  echo "DB_PASS is NOT empty"
+fi
+sh -c 'cd /bench/bench && bench config set-common-config -c root_password $DB_PASS'
+
 
 # TODO: needs redis running
 # bench update --patch

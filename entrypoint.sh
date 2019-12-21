@@ -11,9 +11,9 @@ if [ ! -d "/bench/bench" ]; then
     echo "No bench detecting, initializing now..."
     cd /bench
     sudo chmod 777 .
-    bench init bench
+    bench init bench --frappe-branch version-11
     cd bench
-    bench get-app erpnext https://github.com/frappe/erpnext
+    bench get-app erpnext https://github.com/frappe/erpnext --branch version-11
 fi;
 
 cp -f /home/frappe/common_site_config.json /bench/bench/sites/
